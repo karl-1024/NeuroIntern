@@ -4,6 +4,9 @@ import pandas as pd
 
 # Create a clock to record precise times
 experiment_clock = core.Clock()
+defaultmonitor = (800, 600) 
+mrimonitor = (1024, 768) 
+computermonitor = (1920, 1200) 
 
 def display_instructions():
     instruction_text = ("在這個遊戲中，您將看到顏色詞語（紅色，藍色，綠色）逐一出現。\n\n"
@@ -28,7 +31,7 @@ def display_instructions():
     core.wait(5)
 
 # Create a window with a grey background
-win = visual.Window(size=(800, 600), color='grey', units='pix')
+win = visual.Window(size=defaultmonitor, color='grey', units='pix')
 
 # Display instructions
 display_instructions()
@@ -98,10 +101,12 @@ for trial, image_file in enumerate(pairings):
     # Calculate response time and correctness
     response_key = None
     response_time = None
+    response_speed = -1
     correctness = False
     if response:
         response_key = response[0][0]  # The key that was pressed
         response_time = response[0][1]  # The response time
+        response_speed = response_time - stimulus_onset
         correctness = (response_key == correct_response[0])  # Compare the first letter
 
     # Record trial data with microsecond precision
@@ -114,7 +119,8 @@ for trial, image_file in enumerate(pairings):
         'fixation_onset': fixation_onset,
         'fixation_offset': fixation_offset,
         'stimulus_onset': stimulus_onset,
-        'stimulus_offset': stimulus_offset
+        'stimulus_offset': stimulus_offset,
+        'response_speed': response_speed
     }
     experiment_data.append(trial_data)
 
