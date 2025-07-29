@@ -101,7 +101,7 @@ for trial, image_file in enumerate(pairings):
     # Calculate response time and correctness
     response_key = None
     response_time = None
-    response_speed = -1
+    response_speed = None
     correctness = False
     if response:
         response_key = response[0][0]  # The key that was pressed
