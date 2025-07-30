@@ -1,8 +1,15 @@
-from psychopy import core, visual, event
+from psychopy import core, visual, event, gui 
 import random 
 import pandas as pd 
 
 #assessments = [fixation_on, fixation_off, stimuli_on, stimuli_off, reaction_speed]
+
+info = {'Subject ID (type manually):': ''}
+dlg = gui.DlgFromDict(dictionary=info, title='Experimenter Input')
+if dlg.OK:
+    subject_id = info['Subject ID (type manually):']
+else:
+    core.quit()
 experiment_clock = core.Clock()
 win = visual.Window(size=(800,600), color='grey', units='pix')
 def display_instructions():
@@ -84,8 +91,11 @@ def display_stimuli():
 experiment_clock.reset() 
 display_instructions()
 display_stimuli()
+df = pd.DataFrame(experiment_data)
+df.to_csv()
 print(experiment_data)
 print(pairings)
+
 
 
 
