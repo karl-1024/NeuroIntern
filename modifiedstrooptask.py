@@ -4,10 +4,11 @@ import pandas as pd
 
 #assessments = [fixation_on, fixation_off, stimuli_on, stimuli_off, reaction_speed]
 
-info = {'Subject ID (type manually):': ''}
+#pop-up box for subject id 
+info = {'Subject ID': ''}
 dlg = gui.DlgFromDict(dictionary=info, title='Experimenter Input')
 if dlg.OK:
-    subject_id = info['Subject ID (type manually):']
+    subject_id = info['Subject ID']
 else:
     core.quit()
 experiment_clock = core.Clock()
@@ -92,7 +93,7 @@ experiment_clock.reset()
 display_instructions()
 display_stimuli()
 df = pd.DataFrame(experiment_data)
-df.to_csv()
+df.to_excel(f"{subject_id}_data.xlsx")
 print(experiment_data)
 print(pairings)
 
